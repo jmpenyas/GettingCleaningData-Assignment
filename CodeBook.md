@@ -34,8 +34,108 @@ As well, the number of rows of x, y and subject files of test and train folders 
 Finally, the activity id numbers of Y files can be translated by the description contained on the file activity_labels.
 
 ## CLEANING AND TYDING PROCESS
-
+The next lines will show the steps followed from this original data to the final dataset.
+### Joining the files of every folder in one data frame.
+* Using the function **get_and_join_files**, the files of subjects, activities and measures are joined in one dataset. The first two columns will be subject and activity cause the final set is going to be grouped by them. The activity id is substituted by the corresponding description of it. This is important cause it will improve the reading quality of the column.
+### Joining the resulting dataset of train folder with test folder in a new one.
+### Obtaining the vector with Standard Variations and Mean columns
+* With the function **getVectorStdMean**, we get two vectors: one with the indexes of those columns, other with the titles related to those indexes.
+### Extracting those positions joined to the subject and activity columns from the merged dataset and stored them in a new one.
+### Tidying the columns of the dataset: eliminating special characters and capsizing the initial letter of certain words to make the variables more readable. It follows one of the Tidy Data directrixes.
+### Grouping the dataset by subject and activity columns and aggregating every measure using mean function. The result is stored in the final dataset that can be exported to a text file.
 
 ## FINAL DATA SET
+The final dataset contains the following columns:
+* Subject
+* Activity
+* timeBodyAccMeanX
+* timeBodyAccMeanY
+* timeBodyAccMeanZ 
+* timeBodyAccStdDevX
+* timeBodyAccStdDevY 
+* timeBodyAccStdDevZ
+* timeGravityAccMeanX 
+* timeGravityAccMeanY
+* timeGravityAccMeanZ
+* timeGravityAccStdDevX
+* timeGravityAccStdDevY
+* timeGravityAccStdDevZ 
+* timeBodyAccJerkMeanX
+* timeBodyAccJerkMeanY 
+* timeBodyAccJerkMeanZ
+* timeBodyAccJerkStdDevX
+* timeBodyAccJerkStdDevY
+* timeBodyAccJerkStdDevZ
+* timeBodyGyroMeanX
+* timeBodyGyroMeanY 
+* timeBodyGyroMeanZ 
+* timeBodyGyroStdDevX
+* timeBodyGyroStdDevY
+* timeBodyGyroStdDevZ 
+* timeBodyGyroJerkMeanX
+* timeBodyGyroJerkMeanY 
+* timeBodyGyroJerkMeanZ
+* timeBodyGyroJerkStdDevX
+* timeBodyGyroJerkStdDevY 
+* timeBodyGyroJerkStdDevZ 
+* timeBodyAccMagnitudeMean
+* timeBodyAccMagnitudeStdDev
+* timeGravityAccMagnitudeMean
+* timeGravityAccMagnitudeStdDev
+* timeBodyAccJerkMagnitudeMean
+* timeBodyAccJerkMagnitudeStdDev 
+* timeBodyGyroMagnitudeMean
+* timeBodyGyroMagnitudeStdDev
+* timeBodyGyroJerkMagnitudeMean
+* timeBodyGyroJerkMagnitudeStdDev 
+* freqBodyAccMeanX
+* freqBodyAccMeanY
+* freqBodyAccMeanZ 
+* freqBodyAccStdDevX
+* freqBodyAccStdDevY 
+* freqBodyAccStdDevZ 
+* freqBodyAccJerkMeanX
+* freqBodyAccJerkMeanY 
+* freqBodyAccJerkMeanZ
+* freqBodyAccJerkStdDevX 
+* freqBodyAccJerkStdDevY
+* freqBodyAccJerkStdDevZ
+* freqBodyGyroMeanX 
+* freqBodyGyroMeanY
+* freqBodyGyroMeanZ
+* freqBodyGyroStdDevX 
+* freqBodyGyroStdDevY
+* freqBodyGyroStdDevZ
+* freqBodyAccMagnitudeMean
+* freqBodyAccMagnitudeStdDev
+* freqBodyAccJerkMagnitudeMean 
+* freqBodyAccJerkMagnitudeStdDev 
+* freqBodyGyroMagnitudeMean
+* freqBodyGyroMagnitudeStdDev
+* freqBodyGyroJerkMagnitudeMean
+* freqBodyGyroJerkMagnitudeStdDev
+### Subject 
+* Id of the volunteer
+### Activity
+* Activity performed when the measures were taken
+### Measures 
+All the columns are the mean result of the measure by subject and activity.
+* *time* indicates time domain signals
+* *freq* indicates frequency based on Fast Fourier transformations
+* *Body* indicates a body signal
+* *Gravity* indicates a gravity signal
+* *Acc* indicates accelerometer signal
+* *Gyro* indicates Gyroscope signal
+* *Jerk* indicates the derivation of body angular acceleration and speed
+* *Magnitude* indicates the Euclidean norm applied to the measure of the column
+* *Mean* indicates the Mean value of the measure
+* *StdDev* indicates the Standard Deviation of the measure
+* *XYZ* indicates the axis of the measure taken.
+
 
 ## WHY IS TIDY?
+The dataset complies with the four rules:
+1. Each variable you measure should be in one column. Every feature is stored in only one column
+2. Each different observation of that variable should be in a different row. Every observation is characterized by subject and activity that are unique on every row. 
+3. There should be one table for each "kind" of variable. There is only one kind of variables: mean of the measures taken due the movement,
+4. If you have multiple tables, they should include a column in the table that allows them to be linked. There is only one table.

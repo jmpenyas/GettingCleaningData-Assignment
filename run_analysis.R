@@ -1,5 +1,6 @@
 #####################################################################################
-### The following script complies with the requested steps of the assignment of Coursera's Getting and cleaning data - Week 4
+### The following script complies with the requested steps of the assignment of 
+### Coursera's Getting and cleaning data - Week 4
 ### 1. Merges the training and the test sets to create one data set.
 ### 2. Extracts only the measurements on the mean and standard deviation for each measurement.
 ### 3. Uses descriptive activity names to name the activities in the data set
@@ -10,13 +11,13 @@
 ### It  contains several auxiliary function that will help to organize the code
 #####################################################################################
 library(dplyr)
-### Function that collects de data from txt files we are going to use and stores them on
-### their respective data frames and join them in a single dataframe that is returned
+### Function that collects data from txt files we are going to use and stores them on
+### their respective data frames and join them in a single data frame that is returned
 get_and_join_files = function (mainTxt,
                                labelsTxt,
                                activitiesTxt,
                                subjectsTxt) {
-      ### Loading the dataframes from the txt files
+      ### Loading the data frames from the txt files
       mainDf = read.table(mainTxt)
       labelsDf = read.table(labelsTxt)
       activitiesDf = read.table(activitiesTxt, stringsAsFactors = F)
@@ -26,7 +27,7 @@ get_and_join_files = function (mainTxt,
           nrow (mainDf) != nrow(labelsDf)) {
             return ("Error in data capture, data frames have not got the same length")
       }
-      ### Getting the label text and substituing the id with the text
+      ### Getting the label text and substituting the id with the text
       ### 3. Uses descriptive activity names to name the activities in the data set
       labelsDf[, 1] = activitiesDf[match(labelsDf[, 1], activitiesDf[, 1]), 2]
       ### Adding the subject column with activity one
@@ -44,9 +45,9 @@ getVectorStdMean = function (colTxt, colNames) {
       colDf = read.table(colTxt, stringsAsFactors = F)
       ### Getting vectors for mean and standard variation, discarding the meanFreq ones
       meanStdCols = grep("mean|std", colDf[grep("Freq", colDf[, 2], invert = T), 2])
-      colNames <<-
+      colNames <=
             grep("mean|std", colDf[grep("Freq", colDf[, 2], invert = T), 2], value = T)
-      ### Increasing by 2 because the meassures starts at 3rd column on dataset
+      ### Increasing by 2 because the measures starts at 3rd column on dataset
       meanstdCols = meanStdCols + 2
       
 }
@@ -62,10 +63,10 @@ getTidyNames = function (namesCol){
       namesCol = gsub("^(f)","freq",namesCol)
       namesCol = gsub("(gravity)","Gravity",namesCol)
       namesCol = gsub("([Bb]ody[Bb]ody|[Bb]ody)","Body",namesCol)
-      namesCol <- gsub("gyro","Gyro",namesCol)
-      namesCol <- gsub("acc","Acc",namesCol)
-      namesCol <- gsub("jerk","Jerk",namesCol)
-      namesCol <- gsub("Mag","Magnitude",namesCol)
+      namesCol = gsub("gyro","Gyro",namesCol)
+      namesCol = gsub("acc","Acc",namesCol)
+      namesCol = gsub("jerk","Jerk",namesCol)
+      namesCol = gsub("Mag","Magnitude",namesCol)
 }
 run_analysis = function (dataSetTxt) {
       ### Getting the train and text files and loading both data sets that will be joined later.
@@ -86,7 +87,7 @@ run_analysis = function (dataSetTxt) {
       totalSet = rbind(testDf, trainDf)
       ### Renaming Subject and Activity columns to eliminate duplicated column names
       colnames(totalSet)[1:2] = c("Subject", "Activity")
-      ### Getting the vector of column indices to select the total Set
+      ### Getting the vector of column indexes to select the total Set
       colVectorSelect = append(c(1, 2), getVectorStdMean("features.txt", colNames))
       ###2. Extracts only the measurements on the mean and standard deviation for each measurement.
       ###Storing in another dataSet
